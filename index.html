@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+	<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
+  <style>
+    .tabs {
+      display: flex;
+    }
+
+    .tab {
+      padding: 10px;
+      cursor: pointer;
+      
+    }
+
+    .tab:hover {
+      background-color: #ddd;
+    }
+
+    .tab.active {
+      background-color: #ccc;
+    }
+
+    .content {
+      padding: 10px;
+      width: 600px;
+      display: none;
+    }
+
+    #content1 {
+      display: block;
+    }
+
+    model-viewer {
+      width: 600px;
+      height: 350px;
+    }
+  </style>
+
+  <script>
+    window.onload = function() {
+      var tabs = document.getElementsByClassName('tab');
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].addEventListener('click', function() {
+          var current = document.getElementsByClassName('active');
+          if(current.length > 0) {
+            current[0].className = current[0].className.replace(' active', '');
+          }
+          this.className += ' active';
+          var contentId = 'content' + this.id.replace('tab', '');
+          var contents = document.getElementsByClassName('content');
+          for (var j = 0; j < contents.length; j++) {
+            contents[j].style.display = 'none';
+          }
+          document.getElementById(contentId).style.display = 'block';
+        });
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="tabs">
+    <div class="tab active" id="tab1">ケース</div>
+    <div class="tab" id="tab2">フタ</div>
+    <div class="tab" id="tab3">7seg</div>
+  </div>
+
+  <div class="content" id="content1">
+    <model-viewer id="reveal1" loading="eager" camera-controls auto-rotate poster="hoge.png" src="./HEMS_hako.glb"  exposure="0.6" alt="pancake"></model-viewer>
+  </div>
+  <div class="content" id="content2">
+    <model-viewer id="reveal2" loading="eager" camera-controls auto-rotate poster="hoge.png" src="./HEMS_huta.glb"  exposure="0.6" alt="pancake"></model-viewer>
+  </div>
+  <div class="content" id="content3">
+    <model-viewer id="reveal3" loading="eager" camera-controls auto-rotate poster="hoge.png" src="./7seg_cover_v2.glb"  exposure="0.6" alt="pancake"></model-viewer>
+  </div>
+</body>
+</html>
